@@ -11,6 +11,7 @@ class _ScrapPageState extends State<ScrapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body:  ,
     );
   }
 }
