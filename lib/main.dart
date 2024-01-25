@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ir_news/app_bar.dart';
 import 'package:ir_news/pages/home_page.dart';
 import 'package:ir_news/pages/category_page.dart';
@@ -14,7 +15,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'NARA',
       debugShowCheckedModeBanner: false, // 디버그 라벨 제거
       theme: ThemeData(
