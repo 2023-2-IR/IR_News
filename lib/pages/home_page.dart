@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
 
                 /// 속보 뉴스
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 5),
+                  margin: EdgeInsets.only(top: 10,bottom: 5),
                   child: Column(
                     children: [
                       /// 상단 제목
@@ -330,7 +330,7 @@ class _HomePageState extends State<HomePage> {
                                               Radius.circular(10),
                                             ),
                                           ),
-                                        ))
+                                        ),),
                                   ],
                                 ),
                               ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
-
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
 
@@ -15,70 +14,72 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-
     double deviceWidth = MediaQuery.of(context).size.height;
     double deviceHeight = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  DropdownButtonHideUnderline(
-                    child: DropdownButton2<String>(
-                      isExpanded: true,
-                      hint: Text(
-                        '항목 선택',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context).hintColor,
-                        ),
-                      ),
-                      items: userCategories
-                          .map((String item) => DropdownMenuItem<String>(
-                        value: item,
-
-                        child: Text(
-                          item,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton2<String>(
+                        isExpanded: true,
+                        hint: Text(
+                          '항목 선택',
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 18,
                             fontWeight: FontWeight.w500,
+                            color: Theme.of(context).hintColor,
                           ),
                         ),
-                      ))
-                          .toList(),
-                      value: selectedCategory,
-                      onChanged: (String? value) {
-                        if (value != null) {
-                          setState(() {
-                            selectedCategory = value!;
-                          });
-                        }
-                      },
-                      buttonStyleData: const ButtonStyleData(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        height: 40,
-                        width: 120,
-                      ),
-                      menuItemStyleData: const MenuItemStyleData(
-                        padding: EdgeInsets.only(left: 30),
-                        height: 40,
+                        items: userCategories
+                            .map((String item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Text(
+                                    item,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
+                        value: selectedCategory,
+                        onChanged: (String? value) {
+                          if (value != null) {
+                            setState(() {
+                              selectedCategory = value!;
+                            });
+                          }
+                        },
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          height: 40,
+                          width: 110,
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          padding: EdgeInsets.only(left: 30),
+                          height: 40,
+                        ),
                       ),
                     ),
-                  ),
-
-                  Expanded(child: Divider(height: 20, thickness: 1 ,))
-                ],
-              ),
-            ],
+                    Expanded(
+                        child: Divider(
+                      height: 20,
+                      thickness: 1,
+                    ))
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-

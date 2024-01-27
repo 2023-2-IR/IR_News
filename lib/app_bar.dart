@@ -8,6 +8,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     /// appBar 구현
     double widthSize = MediaQuery.of(context).size.width;
     return AppBar(
+      automaticallyImplyLeading: false,
       title: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
