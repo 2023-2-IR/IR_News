@@ -1,9 +1,9 @@
 const db = require('../config/db');
 const logger = require('../config/logger');
 
-async function getBkList(req) {  //가져와서 인기순대로 정리 해야됨
+async function getBkList() {
     return new Promise((resolve, reject) => {
-        var queryData = `select bk_id, bk_title, bk_img, bk_time, bk_hits from breaking where bk_time >= ${req.time}`;
+        var queryData = `select bk_id, bk_title, bk_img, bk_time, bk_hits from breaking order by bk_hits desc`;
         db.query(queryData, (error, db_data) => {
             if(error) {
                 logger.error (
@@ -17,9 +17,9 @@ async function getBkList(req) {  //가져와서 인기순대로 정리 해야됨
         })
     })
 }
-async function getBk(req) {  //clip은 스크랩 여부인데 얘 고민해보기....
+async function getBk(req) {
     return new Promise((resolve, reject) => {
-        var queryData = `select bk_title, bk_img, bk_cont, bk_time, bk_word, bk_clip from breaking where bk_id = ${req.id}`;
+        var queryData = `select bk_title, bk_img, bk_cont, bk_time, bk_word from breaking where bk_id = ${req.bk_id}`;
         db.query(queryData, (error, db_data) => {
             if(error) {
                 logger.error (
@@ -33,9 +33,9 @@ async function getBk(req) {  //clip은 스크랩 여부인데 얘 고민해보�
         })
     })
 }
-async function getCtgList(req) {  //가져와서 인기순대로 정리 해야됨
+async function getCtgList() {
     return new Promise((resolve, reject) => {
-        var queryData = `select pnews_id, pnews_title, pnews_img, pnews_cont, pnews_time, pnews_hits from pnews where pnews_time >= ${req.time}`;
+        var queryData = `select pnews_id, pnews_title, pnews_img, pnews_cont, pnews_time, pnews_hits from pnews order by pnews_hits desc`;
         db.query(queryData, (error, db_data) => {
             if(error) {
                 logger.error (
@@ -49,13 +49,29 @@ async function getCtgList(req) {  //가져와서 인기순대로 정리 해야�
         })
     })
 }
-async function getCtg(req) {  //clip은 스크랩 여부인데 이거 따로 빼야하나???
+async function getCtg(req) {
     return new Promise((resolve, reject) => {
-        var queryData = `select pnews_title, pnews_img, pnews_cont, pnews_time, pnews_word, pnews_clip from pnews where pnews_id = ${req.id}`;
+        var queryData = `select pnews_title, pnews_img, pnews_cont, pnews_time, pnews_word from pnews where pnews_id = ${req.pnews_id}`;
         db.query(queryData, (error, db_data) => {
             if(error) {
                 logger.error (
                     'DB error [pnews]' +
+                    '\n \t' + queryData +
+                    '\n \t' + error
+                )
+                reject("DB ERR");
+            }
+            resolve(db_data);
+        })
+    })
+}
+async function getCtgClip(req) {
+    return new Promise((resolve, reject) => {
+        var queryData = `SELECT clip_id FROM clip WHERE user_id=${req.user_id} AND pnews_id=${req.pnews_id}`;
+        db.query(queryData, (error, db_data) => {
+            if(error) {
+                logger.error (
+                    'DB error [clips]' +
                     '\n \t' + queryData +
                     '\n \t' + error
                 )
@@ -132,9 +148,10 @@ async function searchNextFromPnews() {
 
 module.exports = {
     getBkList, 
-    getBk, 
+    getBk,
     getCtgList, 
-    getCtg, 
+    getCtg,
+    getCtgClip, 
     searchPreviousFromBk, 
     searchPreviousFromPnews,
     searchNextFromBk,

@@ -8,7 +8,7 @@ async function addCg(req) {
                 "Status" : 406
             }
         }
-        const addCg_data = await CategoryDao.addCg(req);
+        const addCg_data = await CategoryDao.editCg(req);
         return {
             "Message" : "add category success",
             "Status" : 200,

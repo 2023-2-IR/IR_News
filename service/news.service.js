@@ -1,14 +1,8 @@
 const NewsDao = require('../dao/news.dao');
 
-async function getBkList(req) {
+async function getBkList() {
     try {
-        if(!req) {
-            return {
-                "Message" : "get breaking list data nothing",
-                "Status" : 406
-            }
-        }
-        const getBkList_data = await NewsDao.getBkList(req);
+        const getBkList_data = await NewsDao.getBkList();
         return {
             "Message" : "get breaking list success",
             "Status" : 200,
@@ -46,13 +40,7 @@ async function getBk(req) {
 }
 async function getCtgList(req) {
     try {
-        if(!req) {
-            return {
-                "Message" : "get category list data nothing",
-                "Status" : 406
-            }
-        }
-        const getCtgList_data = await NewsDao.getCtgList(req);
+        const getCtgList_data = await NewsDao.getCtgList();
         return {
             "Message" : "get category list success",
             "Status" : 200,
@@ -75,10 +63,20 @@ async function getCtg(req) {
             }
         }
         const getCtg_data = await NewsDao.getCtg(req);
+        const getCtg_clip = await NewsDao.getCtgClip(req);
+        var data = [];
+        for(const element of getCtg_data) {
+            data.push(element);
+        }
+        for(const element of getCtg_clip) {
+            if(element.clip_id) {
+                data.push(element);
+            }
+        }
         return {
             "Message" : "get category success",
             "Status" : 200,
-            "Data" : getCtg_data
+            "Data" : data
         }
     } catch(err) {
         return {
