@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var createError = require('http-errors');
 
 var userRouter = require('./routes/users.routes');
+var categoryRouter = require('./routes/category.routes');
+var newsRouter = require('./routes/news.routes');
+var hotRouter = require('./routes/hot.routes');
 
 var app = express();
 
@@ -22,7 +25,9 @@ app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public/images')));
 
 app.use('/user', userRouter);
-
+app.use('/category', categoryRouter);
+app.use('/news', newsRouter);
+app.use('/hot', hotRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
