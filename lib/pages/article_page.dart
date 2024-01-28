@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ir_news/app_bar.dart';
+import 'package:ir_news/pages/hashtag_page.dart';
 
 class ArticlePage extends StatefulWidget {
   final dynamic id;
@@ -22,6 +24,7 @@ class _ArticlePageState extends State<ArticlePage> {
       "key": "군면제",
       "isScrap": false,
       "category": "정치",
+      "hashtag": ["저출산", "당직근무", "군인"],
     },
   ];
 
@@ -55,15 +58,18 @@ class _ArticlePageState extends State<ArticlePage> {
                         child: Padding(
                           padding:
                               EdgeInsets.only(top: 10, bottom: 10, right: 5),
-                          child: Icon(Icons.arrow_back, size: 25,),
+                          child: Icon(
+                            Icons.arrow_back,
+                            size: 25,
+                          ),
                         ),
                       ),
                       Text(
                         articleExampleData[0]["category"],
                         style: TextStyle(
                           fontFamily: 'Inter',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       Expanded(child: Container()),
@@ -80,7 +86,7 @@ class _ArticlePageState extends State<ArticlePage> {
 
                   /// 사진
                   Container(
-                    height: 0.25 * deviceHeight,
+                    height: 0.2 * deviceHeight,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(articleExampleData[0]['image']),
@@ -91,13 +97,14 @@ class _ArticlePageState extends State<ArticlePage> {
 
                   /// 제목
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 0.04 * deviceWidth),
+                    margin:
+                        EdgeInsets.symmetric(vertical: 0.025 * deviceHeight),
                     child: Text(
                       articleExampleData[0]['title'],
                       style: TextStyle(
                         fontSize: 18,
                         fontFamily: 'Noto Sans KR',
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -114,7 +121,61 @@ class _ArticlePageState extends State<ArticlePage> {
                   ),
 
                   /// 해시태그, 북마크
-                  
+                  Container(
+                    height: 0.05 * deviceHeight,
+                    margin:
+                        EdgeInsets.symmetric(vertical: 0.025 * deviceHeight),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            primary: false,
+                            shrinkWrap: true,
+                            itemCount: articleExampleData[0]["hashtag"].length,
+                            itemBuilder: (context, index) {
+                              final data = articleExampleData[0]["hashtag"];
+                              return GestureDetector(
+                                onTap: () {
+                                  Get.to(
+                                      () => HashtagPage(hashtag: data[index]));
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(left: 5),
+                                  child: Row(
+                                    children: [
+                                      Text("#",
+                                          style: TextStyle(
+                                            color: Color(0xFF1E5BF6),
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                          )),
+                                      Text(data[index]),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              articleExampleData[0]['isScrap'] =
+                                  !articleExampleData[0]['isScrap'];
+                            });
+                          },
+                          child: Container(
+                            child: Icon(
+                              articleExampleData[0]["isScrap"] ? Icons.bookmark : Icons.bookmark_border,
+                              color: Colors.yellow,
+                              size: 40,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),

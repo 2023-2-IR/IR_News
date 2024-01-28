@@ -181,7 +181,7 @@ class _ScrapPageState extends State<ScrapPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      data['cont'],
+                                      data['title'],
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(

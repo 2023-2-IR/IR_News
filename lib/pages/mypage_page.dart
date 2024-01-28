@@ -13,10 +13,8 @@ class _MypagePageState extends State<MypagePage> {
     InterestCategory(name: '경제'),
     InterestCategory(name: '사회'),
     InterestCategory(name: '문화'),
-    InterestCategory(name: '연예'),
+    InterestCategory(name: '국제'),
     InterestCategory(name: '스포츠'),
-    InterestCategory(name: 'IT'),
-    InterestCategory(name: '기타'),
   ];
 
   @override
@@ -101,10 +99,10 @@ class _MypagePageState extends State<MypagePage> {
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: GridView.builder(
-                    itemCount: 8,
+                    itemCount: 6,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      childAspectRatio: 3 / 1,
+                      crossAxisCount: 3,
+                      childAspectRatio: 4 / 1,
                       mainAxisSpacing: 0.05 * deviceHeight,
                       crossAxisSpacing: 0.015 * deviceWidth,
                     ),
