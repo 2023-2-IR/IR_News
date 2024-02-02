@@ -22,14 +22,6 @@ from soynlp import DoublespaceLineCorpus
 import urllib.request
 import pymysql
 
-conn = pymysql.connect(
-    host="210.119.104.148",
-    port=3306,
-    user="hong",
-    password="1q2w3e4r",
-    db="news",
-    charset="utf8"
-)
 
 #키워드 학습
 urllib.request.urlretrieve("https://raw.githubusercontent.com/lovit/soynlp/master/tutorials/2016-10-20.txt", filename="keyword.txt")
