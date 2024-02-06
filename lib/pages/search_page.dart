@@ -3,16 +3,17 @@ import 'package:get/get.dart';
 import 'package:ir_news/app_bar.dart';
 import 'package:ir_news/pages/article_page.dart';
 
-class HashtagPage extends StatefulWidget {
-  final dynamic hashtag;
+class SearchPage extends StatefulWidget {
+  final dynamic searchText;
 
-  const HashtagPage({Key? key, required this.hashtag}) : super(key: key);
+  const SearchPage({Key? key, required this.searchText}) : super(key: key);
 
   @override
-  State<HashtagPage> createState() => _HashtagPageState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _HashtagPageState extends State<HashtagPage> {
+class _SearchPageState extends State<SearchPage> {
+  late TextEditingController searchController;
   final List<Map<String, dynamic>> scrapExampleData = [
     {
       "title": "'북러 무기거래' 나진항서 또 대형 선박 포착, 탄도 미사일 거래 주목",
@@ -97,6 +98,13 @@ class _HashtagPageState extends State<HashtagPage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    // 검색 바의 초기 텍스트를 searchText로 설정
+    searchController = TextEditingController(text: widget.searchText);
+  }
+
+  @override
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
@@ -109,27 +117,42 @@ class _HashtagPageState extends State<HashtagPage> {
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    /// 상단 메뉴
-                    Text("#", style: TextStyle(
-                      fontSize: deviceWidth * 0.06,
-                      color: Color(0xFF1E5BF6),
-                    ),),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(widget.hashtag, style: TextStyle(
-                        fontSize: deviceWidth * 0.04,
-                        fontWeight: FontWeight.w600,
-                      ),),
+                /// 검색 바 구현
+                Container(
+                  height: 35,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                      color: Colors.grey,
                     ),
-                    Expanded(
-                        child: Divider(
-                          height: 20,
-                          thickness: 1,
-                        )),
-                  ],
+                  ),
+                  child: Center(
+                    child: TextField(
+                      controller: searchController, // TextEditingController 설정
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        icon: Padding(
+                          padding: EdgeInsets.only(left: 13),
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ),
+                      onSubmitted: (text) {
+                        // 검색어를 다른 페이지로 전달하면서 페이지 이동
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SearchPage(searchText: text),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
+
                 /// 기사
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -216,3 +239,4 @@ class _HashtagPageState extends State<HashtagPage> {
     );
   }
 }
+

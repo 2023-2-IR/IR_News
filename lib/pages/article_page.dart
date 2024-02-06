@@ -25,6 +25,8 @@ class _ArticlePageState extends State<ArticlePage> {
       "isScrap": false,
       "category": "정치",
       "hashtag": ["저출산", "당직근무", "군인"],
+      "previousId": 2,
+      "nextId": 3,
     },
   ];
 
@@ -72,6 +74,7 @@ class _ArticlePageState extends State<ArticlePage> {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
+                      Text(widget.id.toString()),
                       Expanded(child: Container()),
                       Text(
                         articleExampleData[0]['time'],
@@ -176,6 +179,56 @@ class _ArticlePageState extends State<ArticlePage> {
                       ],
                     ),
                   )
+                ],
+              ),
+            ),
+
+            /// 네비게이션 바 (이전 기사, 다음 기사)
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+              child: Row(
+                children: [
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ArticlePage(id: articleExampleData[0]['previousId']),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Icon(Icons.arrow_back_ios),
+                            Text("이전기사"),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Spacer(),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ArticlePage(id: articleExampleData[0]['nextId']),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Text("다음기사"),
+                            Icon(Icons.arrow_forward_ios),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),

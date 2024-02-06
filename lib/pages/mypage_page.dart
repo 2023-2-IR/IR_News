@@ -8,6 +8,7 @@ class MypagePage extends StatefulWidget {
 }
 
 class _MypagePageState extends State<MypagePage> {
+  bool isSelected = false;
   List<InterestCategory> userCategories = [
     InterestCategory(name: '정치'),
     InterestCategory(name: '경제'),
@@ -111,11 +112,18 @@ class _MypagePageState extends State<MypagePage> {
                         child: OutlinedButton(
                           onPressed: () {
                             // 클릭 시 추가할 내용.
+                            setState(() {
+                              isSelected = !isSelected;
+                            });
                           },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(isSelected ? Colors.yellow : Colors.white),
+                          ),
                           child: Text(
                             '${userCategories[index].name}',
                             style: TextStyle(
                               fontSize: 0.016 * deviceWidth,
+                              color: isSelected ? Colors.black : Colors.black,
                             ),
                             softWrap: false,
                           ),
@@ -143,6 +151,7 @@ class _MypagePageState extends State<MypagePage> {
                           padding: EdgeInsets.only(left: 0.01 * deviceWidth),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(3)),
+
                             border: Border(
                               bottom: BorderSide(width: 2, color: Color(0xFF9D9C9C)),
                             ),

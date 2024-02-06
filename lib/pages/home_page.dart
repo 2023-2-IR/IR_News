@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ir_news/pages/article_page.dart';
+import 'package:ir_news/pages/search_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,7 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController searchController = TextEditingController();
   final List<Map<String, dynamic>> exampleData = [
     {
       "title": "[속보] 넷플릭스, 티빙, 쿠팡플레이도?.. 영화처럼 'OTT 부담금' 검토",
@@ -107,7 +107,6 @@ class _HomePageState extends State<HomePage> {
                   child: Center(
                     child: TextField(
                       keyboardType: TextInputType.text,
-                      controller: searchController,
                       decoration: InputDecoration(
                           hintText: '검색',
                           border: InputBorder.none,
@@ -119,6 +118,15 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.green,
                             ),
                           )),
+
+                      onSubmitted: (text) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SearchPage(searchText: text),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
