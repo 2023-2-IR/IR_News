@@ -52,6 +52,7 @@ app.use(function(err, req, res, next) {
 });
 
 // port open -> 왜 www 에서는 안되는지 모르겠다
+// port open port open port open
 app.listen(3000, () => {
     console.log("3000 port open");
 });
