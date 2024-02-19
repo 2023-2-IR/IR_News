@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:ir_news/app_bar.dart';
 import 'package:ir_news/pages/home_page.dart';
 import 'package:ir_news/pages/category_page.dart';
+import 'package:ir_news/pages/login_page.dart';
 import 'package:ir_news/pages/scrap_page.dart';
 import 'package:ir_news/pages/mypage_page.dart';
 import 'package:ir_news/pages/license_page.dart' as UserLicensePage;
+import 'package:ir_news/pages/signup_page.dart';
 
 
 void main() {
@@ -27,6 +29,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => MainPage(),
         '/license': (context) => UserLicensePage.LicensePage(),
+        '/login': (context) => LoginPage(),
+        '/signup': (context) => SignUpPage(),
       },
     );
   }

@@ -36,19 +36,24 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
 
             /// 이름, 로그인, 로그아웃
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text('정윤석님', style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    decoration: TextDecoration.underline,
-                    decorationColor: Colors.yellow,
-                    decorationThickness: 3,
-                  ),),
-                ],
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/login');
+              },
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text('정윤석님', style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.yellow,
+                      decorationThickness: 3,
+                    ),),
+                  ],
+                ),
               ),
             ),
           ],
